@@ -15,6 +15,11 @@ SELECT * FROM Comments;
 SELECT * FROM YoutubeStats;
 
 -- Start with Youtube Statistics
+# total number of data
+# total number of data
+SELECT
+	COUNT(*) AS number_of_data
+FROM YoutubeStats;
 
 # number of youtube videos for each keyword
 SELECT 
@@ -23,6 +28,49 @@ FROM
     YoutubeStats
 GROUP BY Keyword
 ORDER BY count DESC;
+
+# number of null values in each column
+SELECT
+	SUM(CASE WHEN Likes IS NULL THEN 1 ELSE 0 END) As NullCountLikes,
+    SUM(CASE WHEN Comment IS NULL THEN 1 ELSE 0 END) As NullCountComment,
+    SUM(CASE WHEN Views IS NULL THEN 1 ELSE 0 END) As NullCountViews,
+    SUM(CASE WHEN PublishYear IS NULL THEN 1 ELSE 0 END) As NullCountPublishYear
+FROM
+	YoutubeStats;
+    
+# show all data with null values
+SELECT
+	*
+FROM
+	YoutubeStats
+WHERE Likes IS NULL
+	OR Comment IS NULL
+    OR Views IS NULL;
+    
+# number of -1 in Comment, Likes, Views
+SELECT
+	SUM(CASE WHEN Likes = -1  THEN 1 ELSE 0 END) As NegativeOneCountLikes,
+    SUM(CASE WHEN Comment = -1 THEN 1 ELSE 0 END) As NegativeOneCountComment,
+    SUM(CASE WHEN Views = -1 THEN 1 ELSE 0 END) As NegativeOneCountViews
+FROM
+	YoutubeStats;
+
+# check which videos have negative one Likes
+# Here negative one means that number likes is publicly not visible
+SELECT
+	*
+FROM
+	YoutubeStats
+WHERE Likes = -1;
+
+# check which videos have negative one Comments
+# Here negative one means that video creator disabled comments
+SELECT
+	*
+FROM
+	YoutubeStats
+WHERE Comment = -1;
+	
 
 #global max, min, avg of likes, comment, views
 SELECT
@@ -234,6 +282,23 @@ ORDER BY PublishYear ASC, M.Likes DESC;
 -- Now onto Comments
 SELECT * FROM Comments;
 
+# one thing to note here is that number of Likes here is on the Comments not on the Video
+# Therefore number of Likes in Comments table is different from Likes in YoutubeStats
+
+# total number of data
+SELECT
+	COUNT(*) AS number_of_data 
+FROM Comments;
+
+#Check number of null values in each column
+SELECT
+	SUM(CASE WHEN Likes IS NULL THEN 1 ELSE 0 END) AS NullCountLikes,
+    SUM(CASE WHEN Sentiment IS NULL THEN 1 ELSE 0 END) AS NullCountSentiment
+FROM 
+	Comments;
+
+# from above we can see that there is no null values
+	
 #Total Number of Comments and comments with each sentiment
 SELECT
 	COUNT(Comment) CommentCount,
