@@ -12,7 +12,7 @@ videos-stats.csv:
 - Published At: The date the video was published in YYYY-MM-DD.
 - Keyword: The keyword associated with the video.
 - Likes: The number of likes the video received. If this value is -1, the likes are not publicly visible.
- -Comments: The number of comments the video has. If this value is -1, the video creator has disabled comments.
+- Comments: The number of comments the video has. If this value is -1, the video creator has disabled comments.
 - Views: The number of views the video got.
 
 comments.csv:
